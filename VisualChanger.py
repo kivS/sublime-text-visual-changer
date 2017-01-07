@@ -7,6 +7,35 @@ from pprint import pprint
 #-------------------------------------------------------------------------------------------------------------------------------
 
 
+def plugin_loaded():
+	''' Init plugin '''
+
+	# Get user preferences 
+	user_preferences = get_user_preferences()
+
+	#If there's no visual_changer key in user_preferences let's put one and add some template configs shall we?!!
+	if(user_preferences.get('visual_changer', None) == None):
+		# Set default template configs
+		user_preferences['visual_changer'] = {
+			"profile_name_1":{
+				"key": "value"
+			},
+			"profile_name_2":{
+				"key": "value"
+			},
+			"profile_name_3":{
+				"key": "value"
+			}
+
+		}
+
+		# Save user preferences
+		with open(get_preferences_path(), 'w') as f:
+			# write encoded pretty json preferences
+			f.write(sublime.encode_value(user_preferences, pretty=True))	
+	
+
+
 def get_preferences_path():
 	return sublime.packages_path()+"/User/Preferences.sublime-settings"
 
@@ -22,18 +51,17 @@ def get_user_preferences():
 		#pprint(preferences)
 	
 	return preferences
-
 	
-
 #-------------------------------------------------------------------------------------------------------------------------------
 
 
 class VisualChangerCommand(sublime_plugin.TextCommand):
 	def run(self, edit, profile_chosen):
+		#
 		preferences = get_user_preferences();
 		#print(preferences)
 		
-		profiles = get_user_preferences().get('visual_changer')
+		profiles = preferences.get('visual_changer')
 
 		# change current preferences for the ones in the chosen profile
 		for val in profiles[profile_chosen]:
@@ -42,41 +70,7 @@ class VisualChangerCommand(sublime_plugin.TextCommand):
 
 		# Update User preferences
 		self.view.run_command('update_user_preferences', {'preferences': preferences })
-
-
-class initVisualChangerCommand(sublime_plugin.TextCommand):
-	def run(self, edit): 
-		''' Init configs for the plugin '''
-
-		# Get user preferences 
-		user_preferences = get_user_preferences()
-
-		# print("\n"*100)
-		#print(user_preferences)
-
-		#If there's no visual_changer key in user_preferences let's put one and some template configs shall we?!!
-		if(user_preferences.get('visual_changer', None) == None):
-			#print("noh huh")
-			# Set default template configs
-			user_preferences['visual_changer'] = {
-				"profile_name_1":{
-					"key": "value"
-				},
-				"profile_name_2":{
-					"key": "value"
-				},
-				"profile_name_3":{
-					"key": "value"
-				}
-
-			}
-
-			# Save user preferences
-			self.view.run_command('update_user_preferences', {'preferences': user_preferences })
-
-		else:
-			self.view.run_command('build_commands', {'profiles': user_preferences.get('visual_changer')})
-
+		
 
 class BuildCommandsCommand(sublime_plugin.TextCommand):
 	def run(self, edit, profiles):
@@ -85,6 +79,9 @@ class BuildCommandsCommand(sublime_plugin.TextCommand):
 		# Path to store commands file
 		commands_path = sublime.packages_path()+"/User/VisualChanger.sublime-commands"
 
+		if profiles == None:
+			return 
+		
 		# generate commands file
 		generated_commands = [{"caption": "Visual Changer: Set {} Profile".format(profile), "command": "visual_changer", "args": {"profile_chosen": "{}".format(profile)}} for profile in profiles]
 		
