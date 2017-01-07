@@ -17,13 +17,17 @@ def plugin_loaded():
 	if(user_preferences.get('visual_changer', None) == None):
 		# Set default template configs
 		user_preferences['visual_changer'] = {
+
 			"profile_name_1":{
+
 				"key": "value"
 			},
 			"profile_name_2":{
+
 				"key": "value"
 			},
 			"profile_name_3":{
+			
 				"key": "value"
 			}
 
