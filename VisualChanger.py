@@ -1,7 +1,7 @@
 import sublime
 import sublime_plugin
 import json
-from pprint import pprint
+
 
 
 #-------------------------------------------------------------------------------------------------------------------------------
@@ -34,9 +34,7 @@ def plugin_loaded():
 		}
 
 		# Save user preferences
-		with open(get_preferences_path(), 'w') as f:
-			# write encoded pretty json preferences
-			f.write(sublime.encode_value(user_preferences, pretty=True))	
+		update_user_preferences(user_preferences)
 	
 
 
@@ -55,6 +53,37 @@ def get_user_preferences():
 		#pprint(preferences)
 	
 	return preferences
+
+
+def build_commands(profiles):
+	''' Build commands file based on the profiles set by user '''
+
+	# Path to store commands file
+	commands_path = sublime.packages_path()+"/User/VisualChanger.sublime-commands"
+
+	if profiles == None:
+		return 
+	
+	# generate commands file
+	generated_commands = [{"caption": "Visual Changer: Set {} Profile".format(profile), "command": "visual_changer", "args": {"profile_chosen": "{}".format(profile)}} for profile in profiles]
+	
+	# save commands file
+	with open(commands_path, 'w') as f:
+		f.write(sublime.encode_value(generated_commands, pretty=True))
+
+
+def update_user_preferences(preferences):
+	''' Encode preferences arg JSON object and save it '''
+
+	preferences_path = get_preferences_path()
+	
+	# Open preferences file and save the updated preferences
+	with open(preferences_path, 'w') as f:
+		# write encoded pretty json preferences
+		f.write(sublime.encode_value(preferences, pretty=True))	
+		# re-generate commands file
+		build_commands(preferences.get('visual_changer'))
+				
 	
 #-------------------------------------------------------------------------------------------------------------------------------
 
@@ -73,47 +102,16 @@ class VisualChangerCommand(sublime_plugin.TextCommand):
 			preferences[val] = profiles[profile_chosen][val]
 
 		# Update User preferences
-		self.view.run_command('update_user_preferences', {'preferences': preferences })
-		
+		update_user_preferences(preferences)
 
-class BuildCommandsCommand(sublime_plugin.TextCommand):
-	def run(self, edit, profiles):
-		''' Build commands file based on the profiles set by user '''
-
-		# Path to store commands file
-		commands_path = sublime.packages_path()+"/User/VisualChanger.sublime-commands"
-
-		if profiles == None:
-			return 
-		
-		# generate commands file
-		generated_commands = [{"caption": "Visual Changer: Set {} Profile".format(profile), "command": "visual_changer", "args": {"profile_chosen": "{}".format(profile)}} for profile in profiles]
-		
-		# save commands file
-		with open(commands_path, 'w') as f:
-			f.write(sublime.encode_value(generated_commands, pretty=True))
-
-
-
-class UpdateUserPreferencesCommand(sublime_plugin.TextCommand):
-	def run(self, edit, preferences):
-		''' Encode preferences arg JSON object and save it '''
-
-		preferences_path = get_preferences_path()
-		
-		# Open preferences file and save the updated preferences
-		with open(preferences_path, 'w') as f:
-			# write encoded pretty json preferences
-			f.write(sublime.encode_value(preferences, pretty=True))	
-			# re-generate commands file
-			self.view.run_command('build_commands', {'profiles': preferences.get('visual_changer')})
-		
 
 
 class VisualChangerListener(sublime_plugin.EventListener):
 	def on_pre_save_async(self, view):
 		'''  Check if Preferences file has been saved'''
 
-		# If user saves preferences.sublime-settings then lets update the commands
-		if(view.file_name() ==  get_preferences_path()):
-			view.run_command('build_commands', {'profiles': get_user_preferences().get('visual_changer')})
+		#If user saves preferences.sublime-settings then lets update the commands
+		if(view.file_name().__contains__('Preferences.sublime-settings')):
+			build_commands(get_user_preferences().get('visual_changer'))
+
+
