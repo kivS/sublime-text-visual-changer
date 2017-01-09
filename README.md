@@ -1,6 +1,15 @@
 # Sublime Text 3 - Visual Changer
 [ Sublime Text 3 Plugin ] Allows you to create profiles to change sublime's visual parameters on command
 
+## Installation
+
+* \<Sublime Text Packages folder>  Should be changed to your sublime's Packages folder.
+
+```bash
+git clone https://github.com/kivS/Sublime_Text_Visual_Changer.git "<Sublime Text Packages folder>/Visual Changer"
+```
+
+
 ## Usage
 
 * The plugin creates a config object in the preferences file like:
