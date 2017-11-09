@@ -69,6 +69,16 @@ def _update_plugins_settings(profile):
     for plugin in plugins:
         # load settings object for specific plugin
         plugin_settings_file = '%s.sublime-settings' % plugin
+
+        # if plugin settings file doesn't exist lets stop here.
+        try:
+            throwabit = sublime.load_resource('Packages/User/%s' % plugin_settings_file)
+        except IOError:
+            sublime.error_message('Plugin: [ %s ] does not exist. Check your VisualChanger settings' % plugin)
+            continue
+        finally:
+            del(throwabit)
+
         # load plugin user preferences in memory
         plugin_settings = sublime.load_settings(plugin_settings_file)
 
@@ -119,7 +129,7 @@ def plugin_loaded():
             },
             "profile_name_3": {
 
-                "visual_changer_test": "value 3 ",
+                "visual_changer_test": "value 3",
 
                 "plugins": {
 
