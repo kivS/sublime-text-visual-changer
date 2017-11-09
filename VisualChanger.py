@@ -40,7 +40,7 @@ def _build_commands(profiles):
 
 
 def _update_user_preferences(preferences):
-    ''' Given a modified user preferences lets update the orginal one  '''
+    ''' Replace the original user preferences file with newest one '''
 
     # Open preferences file and save the updated preferences
     with open(PREFERENCES_PATH, 'w') as f:
@@ -79,15 +79,15 @@ def plugin_loaded():
 
             "profile_name_1": {
 
-                "key": "value"
+                "visual_changer_test": "value 1"
             },
             "profile_name_2": {
 
-                "key": "value"
+                "visual_changer_test": "value 2"
             },
             "profile_name_3": {
 
-                "key": "value"
+                "visual_changer_test": "value 3 "
             }
 
         }
