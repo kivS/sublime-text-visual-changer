@@ -58,8 +58,32 @@ def _build_command_dict(profile):
     }
 
 
+def _update_plugins_settings(profile):
+    ''' Replace plugin user preferences with ones from the selected profile '''
+    plugins = profile.get('plugins', list())
+
+    # no plugins to process.. bye!
+    if(len(plugins) == 0):
+        return
+
+    for plugin in plugins:
+        # load settings object for specific plugin
+        plugin_settings_file = '%s.sublime-settings' % plugin
+        # load plugin user preferences in memory
+        plugin_settings = sublime.load_settings(plugin_settings_file)
+
+        for key in plugins[plugin]:
+            val = plugins.get(plugin).get(key)
+            # replace plugin settings with ones from the profile
+            plugin_settings.set(key, val)
+
+        # commit changes for plugin
+        sublime.save_settings(plugin_settings_file)
+
+
 # -------------------------------------------------------------------------------------------------------------------------------
 # Program init
+
 
 def plugin_loaded():
     ''' Init plugin '''
@@ -79,15 +103,27 @@ def plugin_loaded():
 
             "profile_name_1": {
 
-                "visual_changer_test": "value 1"
+                "visual_changer_test": "value 1",
+
+                "plugins": {
+
+                }
             },
             "profile_name_2": {
 
-                "visual_changer_test": "value 2"
+                "visual_changer_test": "value 2",
+
+                "plugins": {
+
+                }
             },
             "profile_name_3": {
 
-                "visual_changer_test": "value 3 "
+                "visual_changer_test": "value 3 ",
+
+                "plugins": {
+
+                }
             }
 
         }
@@ -107,7 +143,13 @@ class VisualChangerCommand(sublime_plugin.TextCommand):
 
         # change current preferences for the ones in the chosen profile
         for val in profiles[profile_chosen]:
+            # ignore plugins inside profiles
+            if(val == 'plugins'):
+                continue
             preferences[val] = profiles[profile_chosen][val]
+
+        # replaces preferences for specific plugin
+        _update_plugins_settings(profiles[profile_chosen])
 
         # Update User preferences
         _update_user_preferences(preferences)
