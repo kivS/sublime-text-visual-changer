@@ -1,5 +1,5 @@
 # Sublime Text 3 - Visual Changer
-VisualChanger is a simple tool that allows you to add profiles that affect settings of the editor and its plugins. 
+**VisualChanger** is a simple tool that allows you to add profiles that affect settings of the editor and its plugins. 
 You can then change between profiles using the command palette or key bindings.
 
 
