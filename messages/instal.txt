@@ -1,0 +1,77 @@
+VisualChanger is a simple tool that allows you to add profiles that affect settings of the editor and its plugins. 
+You can then change between profiles using the command palette or key bindings.
+
+How to use?
+
+1 - VisualChanger adds an example configuration in your settings file(Preferences > Settings)
+    
+    "visual_changer":
+     {
+        "profile_name_1":
+        {
+            "plugins":
+            {
+            },
+            "visual_changer_test": "value 1"
+        },
+        "profile_name_2":
+        {
+            "plugins":
+            {
+            },
+            "visual_changer_test": "value 2"
+        },
+        "profile_name_3":
+        {
+            "plugins":
+            {
+            },
+            "visual_changer_test": "value 3"
+        }
+     }
+
+
+
+2 - Set your profiles and what settings will change for the editor and the plugins.
+    The name of the your plugins can be found in Preferences > Package Settings.
+
+    Example:
+
+    "visual_changer":{
+        "day":
+        {
+            "color_scheme": "Packages/ayu/ayu-light.tmTheme",
+            "original_color_scheme": "Packages/ayu/ayu-light.tmTheme",
+            "theme": "ayu-light.sublime-theme",
+
+            "plugins":
+            {
+                "PlainTasks":
+                {
+                    "color_scheme": "Packages/PlainTasks/tasks-solarized-light.hidden-tmTheme"
+                }
+            },
+        },
+        "evening":
+        {
+            "color_scheme": "Packages/ayu/ayu-mirage.tmTheme",
+            "original_color_scheme": "Packages/ayu/ayu-mirage.tmTheme",
+            "theme": "ayu-mirage.sublime-theme",
+
+            "plugins":
+            {
+                "PlainTasks":
+                {
+                    "color_scheme": "Packages/PlainTasks/tasks-eighties-colored.hidden-tmTheme"
+                }
+            }
+        }
+    }
+
+
+3 - Change between profiles:
+    - Using the command palette(Tools > Command Palette), write the name of the profile and if nothing appears re-launch sublime.
+
+    - Using key bindings(Preferences > Key Bindings) like for eg:
+
+        - { "keys": ["ctrl+alt+d"], "command": "visual_changer", "args": {"profile_chosen": "day"} }
