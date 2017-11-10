@@ -72,7 +72,7 @@ You can then change between profiles using the command palette or key bindings.
 
  ```
  
- * Profiles can then be changed using the command pallete(ctrl+shift+p) or using key bindings
+ * You can change between profiles using the command palette(ctrl+shift+p) or using key bindings
  
  ###### Setting key binding:
  ```json
