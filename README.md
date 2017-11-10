@@ -1,62 +1,75 @@
 # Sublime Text 3 - Visual Changer
-[ Sublime Text 3 Plugin ] Allows you to create profiles to change sublime's visual parameters on command
-
-## Installation
-
-* \<Sublime Text Packages folder>  Should be changed to your sublime's Packages folder.
-
-```bash
-git clone https://github.com/kivS/Sublime_Text_Visual_Changer.git "<Sublime Text Packages folder>/Visual Changer"
-```
+VisualChanger is a simple tool that allows you to add profiles that affect settings of the editor and its plugins. 
+You can then change between profiles using the command palette or key bindings.
 
 
 ## Usage
 
-* The plugin creates a config object in the preferences file like:
+*  VisualChanger adds an example configuration in your settings file(Preferences > Settings):
 
 ```json
-"visual_changer":
-	{
-		"profile_name_1":
-		{
-			"key": "value"
-		},
-		"profile_name_2":
-		{
-			"key": "value"
-		},
-		"profile_name_3":
-		{
-			"key": "value"
-		}
-	}
+ "visual_changer":
+     {
+        "profile_name_1":
+        {
+            "plugins":
+            {
+            },
+            "visual_changer_test": "value 1"
+        },
+        "profile_name_2":
+        {
+            "plugins":
+            {
+            },
+            "visual_changer_test": "value 2"
+        },
+        "profile_name_3":
+        {
+            "plugins":
+            {
+            },
+            "visual_changer_test": "value 3"
+        }
+     }
+
 
 ```
 
 * Example of profile configuration
 
 ```json
-	"visual_changer":
-	{
-		"day":
-		{
-			"color_scheme": "Packages/Colorcoder/ayu-light (Colorcoded).tmTheme",
-			"original_color_scheme": "Packages/ayu/ayu-light.tmTheme",
-			"theme": "ayu-light.sublime-theme"
-		},
-		"evening":
-		{
-			"color_scheme": "Packages/Colorcoder/ayu-mirage (Colorcoded).tmTheme",
-			"original_color_scheme": "Packages/ayu/ayu-mirage.tmTheme",
-			"theme": "ayu-mirage.sublime-theme"
-		},
-		"night":
-		{
-			"color_scheme": "Packages/Colorcoder/ayu-dark (Colorcoded).tmTheme",
-			"original_color_scheme": "Packages/ayu/ayu-dark.tmTheme",
-			"theme": "ayu-dark.sublime-theme"
-		}
-	}
+  "visual_changer":{
+        "day":
+        {
+            "color_scheme": "Packages/ayu/ayu-light.tmTheme",
+            "original_color_scheme": "Packages/ayu/ayu-light.tmTheme",
+            "theme": "ayu-light.sublime-theme",
+
+            "plugins":
+            {
+                "PlainTasks":
+                {
+                    "color_scheme": "Packages/PlainTasks/tasks-solarized-light.hidden-tmTheme"
+                }
+            },
+        },
+        "night":
+        {
+            "color_scheme": "Packages/ayu/ayu-mirage.tmTheme",
+            "original_color_scheme": "Packages/ayu/ayu-mirage.tmTheme",
+            "theme": "ayu-mirage.sublime-theme",
+
+            "plugins":
+            {
+                "PlainTasks":
+                {
+                    "color_scheme": "Packages/PlainTasks/tasks-eighties-colored.hidden-tmTheme"
+                }
+            }
+        }
+    }
+
  ```
  
  * Profiles can then be changed using the command pallete(ctrl+shift+p) or using key bindings
@@ -66,8 +79,5 @@ git clone https://github.com/kivS/Sublime_Text_Visual_Changer.git "<Sublime Text
  { "keys": ["ctrl+alt+d"], "command": "visual_changer", "args": {"profile_chosen": "day"} }
  ```
  
- ###### Usage example:
- ![Usage Example](https://raw.githubusercontent.com/kivS/Sublime_Text_Visual_Changer/master/example.gif "usage gif")
- 
- 
+
  
