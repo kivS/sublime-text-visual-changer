@@ -52,7 +52,7 @@ How to use?
                 }
             },
         },
-        "evening":
+        "night":
         {
             "color_scheme": "Packages/ayu/ayu-mirage.tmTheme",
             "original_color_scheme": "Packages/ayu/ayu-mirage.tmTheme",
@@ -69,9 +69,14 @@ How to use?
     }
 
 
-3 - Change between profiles:
-    - Using the command palette(Tools > Command Palette), write the name of the profile and if nothing appears re-launch sublime.
+3 - Changing between profiles:
+    - Using the command palette(Tools > Command Palette) write the name of the profile.
+      If profile name doesn't show in command palette restart sublime.
 
     - Using key bindings(Preferences > Key Bindings) like for eg:
 
         - { "keys": ["ctrl+alt+d"], "command": "visual_changer", "args": {"profile_chosen": "day"} }
+
+
+
+- More info & issues at https://github.com/kivS/sublime-text-visual-changer
