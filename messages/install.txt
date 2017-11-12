@@ -5,25 +5,25 @@ How to use?
 
 1 - VisualChanger adds an example configuration in your settings file(Preferences > Settings)
     
-    "visual_changer":
+ "visual_changer":
      {
         "profile_name_1":
         {
-            "plugins":
+            "plugins_and_syntax-specific_settings":
             {
             },
             "visual_changer_test": "value 1"
         },
         "profile_name_2":
         {
-            "plugins":
+            "plugins_and_syntax-specific_settings":
             {
             },
             "visual_changer_test": "value 2"
         },
         "profile_name_3":
         {
-            "plugins":
+            "plugins_and_syntax-specific_settings":
             {
             },
             "visual_changer_test": "value 3"
@@ -31,24 +31,29 @@ How to use?
      }
 
 
-
-2 - Set your profiles and what settings will change for the editor and the plugins.
-    The name of the your plugins can be found in Preferences > Package Settings.
+2 - Set your profiles and what settings will change for the editor, sytanx-specific setting and the plugins.
+    
+    - You can target the editor, plugins and syntax-specific settings
+    - They keys in plugins_and_syntax-specific_settings refer to the name of the setting file used, in this case PlainTasks is the name of the setting file for the PlainTasks plugin and Python is the name for Python syntax-specific setting file.
 
     Example:
 
-    "visual_changer":{
+     "visual_changer":{
         "day":
         {
             "color_scheme": "Packages/ayu/ayu-light.tmTheme",
             "original_color_scheme": "Packages/ayu/ayu-light.tmTheme",
             "theme": "ayu-light.sublime-theme",
 
-            "plugins":
+            "plugins_and_syntax-specific_settings":
             {
                 "PlainTasks":
                 {
                     "color_scheme": "Packages/PlainTasks/tasks-solarized-light.hidden-tmTheme"
+                },
+
+                "Python":{
+                    "font_size": 10
                 }
             },
         },
@@ -58,11 +63,15 @@ How to use?
             "original_color_scheme": "Packages/ayu/ayu-mirage.tmTheme",
             "theme": "ayu-mirage.sublime-theme",
 
-            "plugins":
+            "plugins_and_syntax-specific_settings":
             {
                 "PlainTasks":
                 {
                     "color_scheme": "Packages/PlainTasks/tasks-eighties-colored.hidden-tmTheme"
+                },
+
+                "Python":{
+                    "font_size": 15
                 }
             }
         }
