@@ -31,10 +31,10 @@ How to use?
      }
 
 
-2 - Set your profiles and what settings will change for the editor, sytanx-specific setting and the plugins.
+2 - Set your profiles and what settings will change .
     
     - You can target the editor, plugins and syntax-specific settings
-    - They keys in plugins_and_syntax-specific_settings refer to the name of the setting file used, in this case PlainTasks is the name of the setting file for the PlainTasks plugin and Python is the name for Python syntax-specific setting file.
+    - They keys in plugins_and_syntax-specific_settings refer to the name of the setting file used, in this case PlainTasks is the name of the setting file for the PlainTasks plugin and Python is the name for the Python syntax-specific setting file.
 
     Example:
 
