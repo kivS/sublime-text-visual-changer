@@ -81,7 +81,7 @@ You can then change between profiles using the command palette or key bindings.
 
  ```
  
- * You can change between profiles using the command palette(ctrl+shift+p) or using key bindings
+ * You can change between profiles using the command palette(<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>p</kbd>) or using key bindings
  
  ###### Setting key binding:
  ```json
