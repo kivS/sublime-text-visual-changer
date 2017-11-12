@@ -5,7 +5,6 @@ import sublime_plugin
 # -------------------------------------------------------------------------------------------------------------------------------
 # 'Constants'
 
-PREFERENCES_PATH = None
 # Path to store commands file
 COMMANDS_FILE_PATH = None
 
@@ -17,11 +16,7 @@ COMMANDS_FILE_PATH = None
 def _get_user_preferences():
     ''' Get Json Object of the user preferences file  '''
 
-    # open preferences file and decode json
-    with open(PREFERENCES_PATH) as f:
-        preferences = sublime.decode_value(f.read())
-        # pprint(preferences)
-
+    preferences = sublime.load_settings('Preferences.sublime-settings')
     return preferences
 
 
@@ -42,12 +37,10 @@ def _build_commands(profiles):
 def _update_user_preferences(preferences):
     ''' Replace the original user preferences file with newest one '''
 
-    # Open preferences file and save the updated preferences
-    with open(PREFERENCES_PATH, 'w') as f:
-        # write encoded pretty json preferences
-        f.write(sublime.encode_value(preferences, pretty=True))
-        # re-generate commands file
-        _build_commands(preferences.get('visual_changer'))
+    sublime.save_settings('Preferences.sublime-settings')
+
+    # re-generate commands file
+    _build_commands(preferences.get('visual_changer'))
 
 
 def _build_command_dict(profile):
@@ -76,7 +69,7 @@ def _update_plugins_settings(profile):
         except IOError:
             sublime.error_message('Plugin: [ %s ] does not exist. Check your VisualChanger settings' % plugin)
             continue
-        finally:
+        else:
             del(throwabit)
 
         # load plugin user preferences in memory
@@ -98,9 +91,8 @@ def _update_plugins_settings(profile):
 def plugin_loaded():
     ''' Init plugin '''
 
-    global PREFERENCES_PATH, COMMANDS_FILE_PATH
+    global COMMANDS_FILE_PATH
 
-    PREFERENCES_PATH = sublime.packages_path() + "/User/Preferences.sublime-settings"
     COMMANDS_FILE_PATH = sublime.packages_path() + "/User/VisualChanger.sublime-commands"
 
     # Get user preferences
@@ -109,7 +101,7 @@ def plugin_loaded():
     # If there's no visual_changer key in user_preferences lets put one and add some template configs as well
     if(user_preferences.get('visual_changer') is None):
         # Set default template configs
-        user_preferences['visual_changer'] = {
+        default_template = {
 
             "profile_name_1": {
 
@@ -137,6 +129,7 @@ def plugin_loaded():
             }
 
         }
+        user_preferences.set('visual_changer', default_template)
 
         # Save modified user preferences
         _update_user_preferences(user_preferences)
@@ -156,7 +149,7 @@ class VisualChangerCommand(sublime_plugin.TextCommand):
             # ignore plugins inside profiles
             if(val == 'plugins'):
                 continue
-            preferences[val] = profiles[profile_chosen][val]
+            preferences.set(val, profiles[profile_chosen][val])
 
         # replaces preferences for specific plugin
         _update_plugins_settings(profiles[profile_chosen])
@@ -170,5 +163,5 @@ class VisualChangerListener(sublime_plugin.EventListener):
         '''  Rebuild commands file if preferences file has been updated '''
 
         # If user saves preferences.sublime-settings then lets update the commands
-        if(view.file_name().__contains__('Preferences.sublime-settings')):
+        if('Preferences.sublime-settings' in view.file_name()):
             _build_commands(_get_user_preferences().get('visual_changer'))
