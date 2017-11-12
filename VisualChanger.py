@@ -74,12 +74,12 @@ def _update_plugins_and_syntax_settings(profile):
         else:
             del(throwabit)
 
-        # load user preferences in memory
+        # load syntax or plugin user preferences in memory
         item_settings = sublime.load_settings(item_settings_file)
 
         for key in plugins_and_syntaxes[item]:
             val = plugins_and_syntaxes.get(item).get(key)
-            # replace plugin settings with ones from the profile
+            # replace item settings with ones from the profile
             item_settings.set(key, val)
 
         # commit changes for item

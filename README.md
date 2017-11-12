@@ -12,21 +12,21 @@ You can then change between profiles using the command palette or key bindings.
      {
         "profile_name_1":
         {
-            "plugins":
+            "plugins_and_syntax-specific_settings":
             {
             },
             "visual_changer_test": "value 1"
         },
         "profile_name_2":
         {
-            "plugins":
+            "plugins_and_syntax-specific_settings":
             {
             },
             "visual_changer_test": "value 2"
         },
         "profile_name_3":
         {
-            "plugins":
+            "plugins_and_syntax-specific_settings":
             {
             },
             "visual_changer_test": "value 3"
@@ -46,11 +46,15 @@ You can then change between profiles using the command palette or key bindings.
             "original_color_scheme": "Packages/ayu/ayu-light.tmTheme",
             "theme": "ayu-light.sublime-theme",
 
-            "plugins":
+            "plugins_and_syntax-specific_settings":
             {
                 "PlainTasks":
                 {
                     "color_scheme": "Packages/PlainTasks/tasks-solarized-light.hidden-tmTheme"
+                },
+
+                "Python":{
+                    "font_size": 10
                 }
             },
         },
@@ -60,11 +64,15 @@ You can then change between profiles using the command palette or key bindings.
             "original_color_scheme": "Packages/ayu/ayu-mirage.tmTheme",
             "theme": "ayu-mirage.sublime-theme",
 
-            "plugins":
+            "plugins_and_syntax-specific_settings":
             {
                 "PlainTasks":
                 {
                     "color_scheme": "Packages/PlainTasks/tasks-eighties-colored.hidden-tmTheme"
+                },
+
+                "Python":{
+                    "font_size": 15
                 }
             }
         }
