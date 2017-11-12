@@ -36,7 +36,7 @@ You can then change between profiles using the command palette or key bindings.
 
 ```
 * Example of profile configuration
-  - You can target the editor, plugins and syntax-specific settings
+  - You can target the editor, plugins and syntax-specific settings.
   - They keys in `plugins_and_syntax-specific_settings` refer to the name of the setting file used, in this case `PlainTasks` is the name of the setting file for the PlainTasks plugin and `Python` is the name for Python syntax-specific setting file.
 
 ```json
