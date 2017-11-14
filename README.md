@@ -2,6 +2,9 @@
 **VisualChanger** is a simple tool that allows you to add profiles that affect settings of the editor and its plugins. 
 You can then change between profiles using the command palette or key bindings.
 
+## Installation 
+
+- Search for `VisualChanger` in Sublime's package control
 
 ## Usage
 
