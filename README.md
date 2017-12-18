@@ -8,6 +8,8 @@ You can then change between profiles using the command palette or key bindings.
 
 ## Usage
 
+![Usage gif](execution.gif)
+
 *  VisualChanger adds an example configuration in your settings file(Preferences > Settings):
 
 ```json
